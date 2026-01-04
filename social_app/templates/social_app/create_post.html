@@ -1,0 +1,17 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'social_app/style.css' %}">
+
+<header>
+    <h1>Mini Social Media</h1>
+    <a href="{% url 'feed' %}">Feed</a>
+    <a href="{% url 'logout' %}">Wyloguj się</a>
+</header>
+
+<div class="container">
+    <h2>Nowy Post</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Dodaj Post</button>
+    </form>
+</div>

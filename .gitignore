@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.swp
+*.swo
+*.env
+*.venv/
+venv/
+ENV/
+env/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Django
+*.sqlite3
+db.sqlite3
+*.log
+*.pot
+*.pyc
+*.pyo
+
+# Media files (jeśli masz folder media)
+media/
+
+# Static files (opcjonalnie, jeśli nie chcesz śledzić)
+staticfiles/
+
+# VSCode / IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# System plików
+.DS_Store
+Thumbs.db
+
+# Secret keys
+.env

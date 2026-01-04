@@ -1,0 +1,33 @@
+{%load static%}<link rel="stylesheet" type="text/css" href="{% static 'social_app/style.css' %}">
+{% block content %}
+<div class="container">
+    <h2>Lista użytkowników</h2>
+
+    <div class="user-list">
+        {% for user in users %}
+        <div class="user-card">
+            <div class="user-info">
+                <!-- Ikona użytkownika (placeholder) -->
+                <div class="avatar">👤</div>
+                
+                <div class="username-stats">
+                    <span class="username">{{ user.username }}</span>
+                    <span class="stats">
+                        Obserwujący: {{ user.profile.followers.count }} |
+                        Obserwowani: {{ user.profile.following.count }}
+                    </span>
+                </div>
+            </div>
+
+            {% if user.profile in request.user.profile.following.all %}
+                <a href="{% url 'toggle_follow' user.id %}" class="btn unfollow">❌ Przestań obserwować</a>
+            {% else %}
+                <a href="{% url 'toggle_follow' user.id %}" class="btn follow">➕ Obserwuj</a>
+            {% endif %}
+        </div>
+        {% empty %}
+            <p>Nie ma innych użytkowników do wyświetlenia.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

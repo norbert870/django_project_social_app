@@ -1,0 +1,52 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'social_app/style.css' %}">
+
+<header>
+    <h1>Mini Social Media</h1>
+    <a href="{% url 'feed' %}">Feed</a>
+    <a href="{% url 'create_post' %}">Nowy Post</a>
+    <a href="{% url 'user_list' %}">Użytkownicy</a> 
+    <a href="{% url 'logout' %}">Wyloguj się</a>
+</header>
+
+<div class="container">
+    {% for post in posts %}
+    <div class="post">
+        <p><strong>{{ post.author.username }}</strong>: {{ post.content }}</p>
+
+        <div class="action-buttons">
+            <span>Likes: {{ post.total_likes }}</span>
+            
+            <!-- Like/Unlike -->
+            <form method="POST" action="{% url 'like_post' post.id %}" style="display:inline;">
+                {% csrf_token %}
+                {% if user in post.likes.all %}
+                    <button type="submit">💔 Nie lubię</button>
+                {% else %}
+                    <button type="submit">❤️ Polub</button>
+                {% endif %}
+            </form>
+        </div>
+
+        <!-- Comments -->
+        <div class="comments">
+            {% for comment in post.comments.all %}
+                <div class="comment">
+                    <strong>{{ comment.author.username }}</strong>: {{ comment.content }}
+                </div>
+            {% empty %}
+                <div class="comment">Brak komentarzy</div>
+            {% endfor %}
+
+            <!-- Add comment form -->
+            <form method="POST" action="{% url 'add_comment' post.id %}">
+                {% csrf_token %}
+                <input type="text" name="content" placeholder="Dodaj komentarz" required>
+                <button type="submit">Komentuj</button>
+            </form>
+        </div>
+    </div>
+    {% empty %}
+        <p>Brak postów do wyświetlenia. Obserwuj innych użytkowników!</p>
+    {% endfor %}
+</div>

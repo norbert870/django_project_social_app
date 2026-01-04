@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Logowanie - Mini Social Media</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'social_app/style.css' %}">
+</head>
+<body>
+
+<header>
+    <h1>Mini Social Media</h1>
+</header>
+
+<div class="container">
+    <h2>Zaloguj się</h2>
+
+    <!-- Display messages (like login errors) -->
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                    {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        
+        <!-- Username field -->
+        <div class="form-group">
+            <label for="id_username">Nazwa użytkownika:</label>
+            <input type="text" name="username" id="id_username" required>
+        </div>
+
+        <!-- Password field -->
+        <div class="form-group">
+            <label for="id_password">Hasło:</label>
+            <input type="password" name="password" id="id_password" required>
+        </div>
+
+        <button type="submit">Zaloguj się</button>
+    </form>
+
+    <p>Nie masz konta? <a href="{% url 'register' %}">Zarejestruj się</a></p>
+</div>
+
+</body>
+</html>
