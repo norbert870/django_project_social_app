@@ -41,3 +41,5 @@ class PostForm(forms.ModelForm):
         widgets = {
             'content': forms.Textarea(attrs={'placeholder': 'Co słychać?', 'rows': 3}),
         }
+
+#postform
